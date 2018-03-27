@@ -37,13 +37,26 @@ public class LoginActivity extends BaseActivity {
         CookieJarImpl cookieJar = (CookieJarImpl) OkHttpUtils.getInstance().getOkHttpClient().cookieJar();
         cookieJar.getCookieStore().removeAll();
     }
+    private void initIntent() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            String username = intent.getStringExtra(KEY_USERNAME);
+            if (username != null) {
+                mEtUsername.setText(username);
+            }
+            String password = intent.getStringExtra(KEY_PASSWORD);
+            if (password != null) {
+                mEtPassword.setText(password);
+            }
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         initView();
-
+        initIntent();
         initEvent();
     }
 
@@ -102,6 +115,7 @@ public class LoginActivity extends BaseActivity {
     private void toRegisterActivity() {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public static void launch(Context context, String username, String password) {

@@ -1,4 +1,4 @@
-package restart.com.restart_res;
+package restart.com.restart_res.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import restart.com.restart_res.R;
 
 public class SplashActivity extends AppCompatActivity {
 

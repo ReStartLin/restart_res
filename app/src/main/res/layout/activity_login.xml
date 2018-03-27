@@ -1,9 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="restart.com.restart_res.LoginActivity">
+    android:background="@drawable/bg_login"
+    tools:context=".ui.activity.LoginActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/id_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:text="小慕餐厅"
+        android:textColor="#ffffff"
+        android:textSize="48sp"
+        android:textStyle="bold"></TextView>
+
+
+    <EditText
+        android:id="@+id/id_et_username"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@id/id_tv_title"
+        android:layout_marginTop="40dp"
+        android:background="#44ffffff"
+        android:hint="请输入账号"
+        android:inputType="text"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" />
+
+    <EditText
+        android:id="@+id/id_et_password"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@id/id_et_username"
+        android:layout_marginTop="4dp"
+        android:background="#44ffffff"
+        android:hint="请输入密码"
+        android:inputType="textWebPassword"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" />
+
+
+    <Button
+        android:id="@+id/id_btn_login"
+        style="@style/Button_Large_Black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_et_password"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="50dp"
+        android:text="确定" />
+
+    <TextView
+        android:id="@+id/id_btn_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_btn_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="手机注册"
+        android:textColor="#ffffff" />
+
+
+</RelativeLayout>

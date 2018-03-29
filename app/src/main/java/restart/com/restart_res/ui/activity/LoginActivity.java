@@ -124,4 +124,10 @@ public class LoginActivity extends BaseActivity {
         intent.putExtra(KEY_PASSWORD, password);
         context.startActivity(intent);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mUserBiz.onDestory();
+    }
 }

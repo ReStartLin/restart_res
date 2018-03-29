@@ -2,17 +2,21 @@ package restart.com.restart_res.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/3/29.
  */
 
-public class Order implements Serializable{
-    public static class ProductVo implements Serializable{
+public class Order implements Serializable {
+    public static class ProductVo implements Serializable {
         public Product product;
         public int count;
     }
+
+    public Map<Product, Integer> productMap = new HashMap<>();
     private int id;
     private Date date;
     private Restaurant restaurant;

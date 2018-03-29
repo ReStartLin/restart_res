@@ -1,9 +1,11 @@
 package restart.com.restart_res.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by zhy on 16/10/23.
  */
-public class User {
+public class User implements Serializable {
     private int id ;
     private String username ;
     private String password;

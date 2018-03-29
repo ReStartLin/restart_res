@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -105,6 +106,7 @@ public class OrderActivity extends BaseActivity {
         orderBiz.listByPage(0, new CommonCallback<List<Order>>() {
             @Override
             public void onError(Exception e) {
+                Log.e("", "onError: "+e.getMessage(), e);
                 stopLoadingProgress();
                 T.showToast(e.getMessage());
 

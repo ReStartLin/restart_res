@@ -36,9 +36,15 @@ public class OrderActivity extends BaseActivity {
     private ImageView mIvIcon;
 
     private List<Order> mDatas = new ArrayList<>();
-    private OrderBiz orderBiz = new OrderBiz();
+    private OrderBiz mOrderBiz = new OrderBiz();
 
     private int mCurrentPage = 0;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mOrderBiz.onDestory();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +82,7 @@ public class OrderActivity extends BaseActivity {
 
     private void loadMore() {
         startLoadingProgress();
-        orderBiz.listByPage(++mCurrentPage, new CommonCallback<List<Order>>() {
+        mOrderBiz.listByPage(++mCurrentPage, new CommonCallback<List<Order>>() {
             @Override
             public void onError(Exception e) {
                 stopLoadingProgress();
@@ -103,7 +109,7 @@ public class OrderActivity extends BaseActivity {
 
     private void loadDatas() {
         startLoadingProgress();
-        orderBiz.listByPage(0, new CommonCallback<List<Order>>() {
+        mOrderBiz.listByPage(0, new CommonCallback<List<Order>>() {
             @Override
             public void onError(Exception e) {
                 Log.e("", "onError: "+e.getMessage(), e);

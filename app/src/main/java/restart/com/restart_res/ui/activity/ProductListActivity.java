@@ -13,13 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import restart.com.restart_res.R;
+import restart.com.restart_res.bean.Order;
 import restart.com.restart_res.bean.Product;
+import restart.com.restart_res.biz.OrderBiz;
 import restart.com.restart_res.biz.ProductBiz;
 import restart.com.restart_res.net.CommonCallback;
 import restart.com.restart_res.ui.adapter.ProductListAdapter;
 import restart.com.restart_res.ui.view.refresh.SwipeRefresh;
 import restart.com.restart_res.ui.view.refresh.SwipeRefreshLayout;
 import restart.com.restart_res.ui.vo.ProductItem;
+import restart.com.restart_res.utils.MatchUtil;
 import restart.com.restart_res.utils.T;
 
 public class ProductListActivity extends BaseActivity {
@@ -31,11 +34,14 @@ public class ProductListActivity extends BaseActivity {
     private ProductListAdapter mAdapter;
     private List<ProductItem> mDatas = new ArrayList<>();
 
+    private OrderBiz mOrderBiz = new OrderBiz();
     private ProductBiz mProductBiz = new ProductBiz();
     private int mCurrentPage;
 
     private float mTotalPrice;
     private int mTotalCount;
+
+    private Order mOrder = new Order();
 
     @Override
     protected void onDestroy() {
@@ -77,8 +83,11 @@ public class ProductListActivity extends BaseActivity {
             public void onProductAdd(ProductItem productItem) {
                 mTotalCount++;
                 mTvCount.setText("数量:"+mTotalCount);
-                mTotalPrice += productItem.getPrice();
+//                mTotalPrice += productItem.getPrice();
+                mTotalPrice = MatchUtil.add(mTotalPrice, productItem.getPrice());
                 mBtnPay.setText(mTotalPrice+"元 立即支付");
+
+                mOrder.addProduct(productItem);
 
             }
 
@@ -86,15 +95,47 @@ public class ProductListActivity extends BaseActivity {
             public void onProductSub(ProductItem productItem) {
                 mTotalCount--;
                 mTvCount.setText("数量:"+mTotalCount);
-                mTotalPrice -= productItem.getPrice();
+//                mTotalPrice -= productItem.getPrice();
+                mTotalPrice = MatchUtil.sub(mTotalPrice, productItem.getPrice());
+                if (mTotalCount == 0) {
+                    mTotalPrice = 0;
+                }
+
                 mBtnPay.setText(mTotalPrice+"元 立即支付");
+
+                mOrder.removeProduct(productItem);
 
             }
         });
         mBtnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mTotalCount <= 0) {
+                    T.showToast("你还没有选择菜品");
+                    return;
+                }
+                mOrder.setCount(mTotalCount);
+                mOrder.setPrice(mTotalPrice);
+                mOrder.setRestaurant(mDatas.get(0).getRestaurant());
 
+                startLoadingProgress();
+
+                mOrderBiz.add(mOrder, new CommonCallback<String>() {
+                    @Override
+                    public void onError(Exception e) {
+                        stopLoadingProgress();
+                        T.showToast(e.getMessage());
+                    }
+
+                    @Override
+                    public void onSuccess(String response) {
+                        stopLoadingProgress();
+                        T.showToast("订单支付成功");
+
+                        setResult(RESULT_OK);
+                        finish();
+                    }
+                });
             }
         });
 

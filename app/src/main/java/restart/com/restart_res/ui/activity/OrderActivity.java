@@ -1,5 +1,6 @@
 package restart.com.restart_res.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -75,9 +76,18 @@ public class OrderActivity extends BaseActivity {
         mBtnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(OrderActivity.this, ProductListActivity.class);
+                startActivityForResult(intent,1001);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001 && resultCode == RESULT_OK) {
+            loadDatas();
+        }
     }
 
     private void loadMore() {
@@ -88,6 +98,7 @@ public class OrderActivity extends BaseActivity {
                 stopLoadingProgress();
                 T.showToast(e.getMessage());
                 mCurrentPage--;
+                mSwipeRefreshLayout.setPullUpRefreshing(false);
             }
 
             @Override
@@ -115,7 +126,7 @@ public class OrderActivity extends BaseActivity {
                 Log.e("", "onError: "+e.getMessage(), e);
                 stopLoadingProgress();
                 T.showToast(e.getMessage());
-
+                mSwipeRefreshLayout.setRefreshing(false);
             }
 
             @Override

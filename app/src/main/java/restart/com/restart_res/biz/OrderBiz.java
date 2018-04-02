@@ -32,9 +32,11 @@ public class OrderBiz {
         StringBuilder sb = new StringBuilder();
         Map<Product, Integer> productMap = order.productMap;
         for (Product p :productMap.keySet()) {
-            sb.append(p.getId() + "_" + productMap.get(p));
-            sb.append("|");
-
+            Integer count = productMap.get(p);
+            if (count != null && count > 0) {
+                sb.append(p.getId() + "_" + productMap.get(p));
+                sb.append("|");
+            }
         };
         sb.deleteCharAt(sb.length() - 1);
 

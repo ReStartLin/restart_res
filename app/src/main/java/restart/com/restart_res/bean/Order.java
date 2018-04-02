@@ -39,7 +39,7 @@ public class Order implements Serializable {
 
     public void removeProduct(Product product) {
         Integer count = productMap.get(product);
-        if (count==null||count <= 0) {
+        if (count == null||count <= 0) {
             return;
         }
         count--;

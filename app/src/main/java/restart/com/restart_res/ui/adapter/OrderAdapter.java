@@ -15,6 +15,7 @@ import java.util.List;
 import restart.com.restart_res.R;
 import restart.com.restart_res.bean.Order;
 import restart.com.restart_res.config.Config;
+import restart.com.restart_res.ui.activity.OrderDetailActivity;
 
 /**
  * Created by Administrator on 2018/3/29.
@@ -73,7 +74,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderItemVie
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO 详情
+                    OrderDetailActivity.launch(mContext,mDatas.get(getLayoutPosition()));
                 }
             });
 

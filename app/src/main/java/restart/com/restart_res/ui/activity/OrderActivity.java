@@ -128,6 +128,10 @@ public class OrderActivity extends BaseActivity {
                 stopLoadingProgress();
                 T.showToast(e.getMessage());
                 mSwipeRefreshLayout.setRefreshing(false);
+
+                if ("用户未登录".equals(e.getMessage())){
+                    toLoginActivity();
+                }
             }
 
             @Override

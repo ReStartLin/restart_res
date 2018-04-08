@@ -125,6 +125,9 @@ public class ProductListActivity extends BaseActivity {
                     public void onError(Exception e) {
                         stopLoadingProgress();
                         T.showToast(e.getMessage());
+                        if ("用户未登录".equals(e.getMessage())){
+                            toLoginActivity();
+                        }
                     }
 
                     @Override
@@ -151,6 +154,9 @@ public class ProductListActivity extends BaseActivity {
                 mCurrentPage--;
                 Log.e("", "onError: "+e.getMessage(),e );
                 mSwipeRefreshLayout.setPullUpRefreshing(false);
+                if ("用户未登录".equals(e.getMessage())){
+                    toLoginActivity();
+                }
             }
 
             @Override

@@ -184,7 +184,7 @@ public class OrderActivity extends BaseActivity {
                 home.addCategory(Intent.CATEGORY_HOME);
                 startActivity(home);
             } catch (Exception e) {
-
+                //ignore
             }
 
         }

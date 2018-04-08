@@ -14,6 +14,7 @@ import java.util.List;
 
 import restart.com.restart_res.R;
 import restart.com.restart_res.config.Config;
+import restart.com.restart_res.ui.activity.ProductDetailActivity;
 import restart.com.restart_res.ui.vo.ProductItem;
 import restart.com.restart_res.utils.T;
 
@@ -25,6 +26,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     private Context mContext;
     private List<ProductItem> mProductItems;
     private LayoutInflater inflater;
+
 
     public ProductListAdapter(Context mContext, List<ProductItem> mProductItems) {
         this.mContext = mContext;
@@ -92,7 +94,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO 商品详情
+                    ProductDetailActivity.launch(mContext,mProductItems.get(getLayoutPosition()));
                 }
             });
 
